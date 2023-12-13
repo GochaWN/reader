@@ -22,7 +22,12 @@ class FileHandler:
     def change_data(self):
         for change in self.changes:
             changes_list = change.split(",")
-            self.input_data[int(changes_list[0])][int(changes_list[1])] = changes_list[2]
+            print(f"{changes_list} lista zmian")
+            x=int(changes_list[0])
+            y=int(changes_list[1])
+            print(self.input_data)
+            self.input_data[x][y] = changes_list[2]
+
 
     def write_data_to_file(self):
         with open(self.output_file, mode="w") as file:
@@ -36,9 +41,10 @@ output_file = sys.argv[2]
 changes = (sys.argv[3:])
 
 file_handler = FileHandler (input_file, output_file, changes)
-file_handler.read_file_from_source(input_file)
+file_handler.read_file_from_source()
 file_handler.change_data()
-file_handler.run()
+
+
 print(sys.argv)
 
 input_folder = os.path.dirname(input_file)
@@ -54,9 +60,9 @@ if not input_file.lower().endswith('.csv'):
     else:
         print("No CSV files found in the folder.")
     sys.exit(1)
-file_handler.run()
 
 
+file_handler.write_data_to_file()
 
 print("Changed data:")
 print(f"{changes}")
